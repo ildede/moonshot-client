@@ -4,19 +4,16 @@ import {Stomp} from "@stomp/stompjs";
 let stompClient = null;
 let username = null;
 
-export function connect(event) {
-    username = document.querySelector('#name').value.trim();
+export function connect(name) {
+    console.log("try to connect: ", name);
+    username = name;
 
-    if(username) {
-        document.querySelector('#username-page').classList.add('hidden');
-        document.querySelector('#chat-page').classList.remove('hidden');
-
-        const socket = new SockJS('http://192.168.0.11:8080/ws');
+    const socket = new SockJS('http://192.168.0.11:8080/ws');
+    if (!stompClient) {
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
     }
-    event.preventDefault();
 }
 
 function onConnected() {
@@ -33,13 +30,13 @@ function onConnected() {
 }
 
 function onError(error) {
-    console.log(error);
+    console.error(error);
     let connectingElement = document.querySelector('.connecting');
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
 
-export function sendMessage(event) {
+export function sendMessage(event, username) {
     let messageInput = document.querySelector('#message');
 
     let messageContent = messageInput.value.trim();
@@ -57,7 +54,7 @@ export function sendMessage(event) {
 
 function onMessageReceived(payload) {
     let message = JSON.parse(payload.body);
-    console.log(message);
+    // console.log(message);
 
     const messageElement = document.createElement('li');
 
