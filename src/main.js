@@ -2,38 +2,26 @@ import SockJS from "sockjs-client";
 import {Stomp} from "@stomp/stompjs";
 
 let stompClient = null;
-let username = null;
 
-export function connect(name) {
-    console.log("try to connect: ", name);
-    username = name;
-
+export function connect(onConnectionOk, onConnectionError) {
     const socket = new SockJS('http://192.168.0.11:8080/ws');
     if (!stompClient) {
         stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, onConnected, onError);
+        stompClient.connect({}, onConnectionOk, onConnectionError);
     }
 }
 
-function onConnected() {
+export function onConnected(username, location) {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({ sender: username, type: 'JOIN', location: location })
     )
 
     document.querySelector('.connecting').classList.add('hidden');
-}
-
-function onError(error) {
-    console.error(error);
-    let connectingElement = document.querySelector('.connecting');
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
 }
 
 export function sendMessage(event, username) {
