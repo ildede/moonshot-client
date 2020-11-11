@@ -1,5 +1,6 @@
 import React, {createContext, useReducer} from 'react';
 import {Action, InitialStateType, Locations, MessageType} from "./types/type";
+import {connect} from "./main";
 
 const initialState: InitialStateType = {
   messages: [],

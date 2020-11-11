@@ -1,17 +1,16 @@
 import React from 'react';
 import './Game.css';
-import {MoonshotGameContext} from "./context";
 import {Locations} from "./types/type";
-import {connect, sendMessage} from "./main";
+import {sendMessage} from "./main";
+import useMoonshotGame from "./useMoonshotGame";
 
 function Game() {
   console.debug('render Game');
-  const { state, dispatch } = React.useContext(MoonshotGameContext);
+  const { username, location } = useMoonshotGame();
 
-  switch (state.location) {
+  switch (location) {
     case Locations.Earth:
-      console.log("You are on earth and your name is " + state.username);
-      connect(state.username);
+      console.log("You are on earth and your name is " + username);
       return (
         <div id="chat-page">
           <div className="chat-container">
@@ -25,7 +24,7 @@ function Game() {
             <ul id="messageArea">
 
             </ul>
-            <form id="messageForm" name="messageForm" onSubmit={event => sendMessage(event, state.username)}>
+            <form id="messageForm" name="messageForm" onSubmit={event => sendMessage(event, username)}>
               <div className="form-group">
                 <div className="input-group clearfix">
                   <input type="text" id="message" placeholder="Type a message..." autoComplete="off"
@@ -38,8 +37,7 @@ function Game() {
         </div>
       )
     case Locations.Moon:
-      console.log("You are on Moon and your name is " + state.username);
-      connect(state.username);
+      console.log("You are on Moon and your name is " + username);
       return (
         <div id="chat-page">
           <div className="chat-container">
@@ -53,7 +51,7 @@ function Game() {
             <ul id="messageArea">
 
             </ul>
-            <form id="messageForm" name="messageForm" onSubmit={event => sendMessage(event, state.username)}>
+            <form id="messageForm" name="messageForm" onSubmit={event => sendMessage(event, username)}>
               <div className="form-group">
                 <div className="input-group clearfix">
                   <input type="text" id="message" placeholder="Type a message..." autoComplete="off"

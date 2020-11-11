@@ -1,14 +1,14 @@
 import * as React from "react";
-import {MoonshotGameContext} from "./context";
 import {Locations} from "./types/type";
+import useMoonshotGame from "./useMoonshotGame";
 
 const LocationManager = () => {
   console.debug("render LocationManager");
-  const { state, dispatch } = React.useContext(MoonshotGameContext);
+  const { startGame, username, location } = useMoonshotGame()
 
   const [data, setData] = React.useState({
-    chosenLocation: state.location,
-    username: state.username,
+    chosenLocation: location,
+    username: username,
     isSubmitting: false,
     errorMessage: null
   });
@@ -26,47 +26,10 @@ const LocationManager = () => {
     console.debug('submit the form', event);
     event.preventDefault();
     setData({...data, isSubmitting: true, errorMessage: null });
-
-    dispatch({
-      type: "START",
-      payload: { location: data.chosenLocation, username: data.username }
-    });
-
+    startGame(data.username, data.chosenLocation);
   };
 
-  /*
-  export function connect(event) {
-    username = document.querySelector('#name').value.trim();
-
-    if(username) {
-        document.querySelector('#username-page').classList.add('hidden');
-        document.querySelector('#chat-page').classList.remove('hidden');
-
-        const socket = new SockJS('http://192.168.0.11:8080/ws');
-        stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, onConnected, onError);
-    }
-    event.preventDefault();
-}
-  * */
-
-  //     <div id="username-page">
-  //       <div className="username-page-container">
-  //         <h1 className="title">Enter your username</h1>
-  //         <form id="usernameForm" name="usernameForm" onSubmit={connect}>
-  //           <div className="form-group">
-  //             <input type="text" id="name" placeholder="Username" autoComplete="off" className="form-control"/>
-  //           </div>
-  //           <div className="form-group">
-  //             <button type="submit" className="accent username-submit">Start Chatting</button>
-  //           </div>
-  //         </form>
-  //       </div>
-  //     </div>
-
-
-  if (state.location === Locations.NotKnown) {
+  if (location === Locations.NotKnown) {
     return (
       <div className="username-page-container">
         <h1 className="title">Name and Location</h1>
