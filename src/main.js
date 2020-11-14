@@ -11,14 +11,14 @@ export function connect(onConnectionOk, onConnectionError) {
     }
 }
 
-export function onConnected(username, location) {
+export function onConnected(username) {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/game/list', onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    stompClient.send("/app/game.create",
         {},
-        JSON.stringify({ sender: username, type: 'JOIN', location: location })
+        JSON.stringify({ sender: username, type: 'JOIN' })
     )
 
     document.querySelector('.connecting').classList.add('hidden');

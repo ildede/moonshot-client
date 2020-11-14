@@ -1,22 +1,29 @@
 import {useContext} from 'react';
 import {MoonshotGameContext} from "./context";
 import {Locations} from "./types/type";
-import {connect, onConnected} from "./main";
 
 const useMoonshotGame = () => {
   const { state, dispatch } = useContext(MoonshotGameContext);
 
-  function startGame(username: string, location: Locations) {
-    dispatch({type: "START", payload: {username: username, location: location}});
-    connect(
-      () => onConnected(username, location),
-      (error: any) => { console.error(error)});
+  function connectToLobby(username: string) {
+    dispatch({ type: "TO_LOBBY", payload: { username: username }});
+  }
+
+  function createGame(location: Locations) {
+    dispatch({ type: "NEW_GAME", payload: { location: location }});
+  }
+
+  function joinGame(gameId: string) {
+    dispatch({ type: "TO_GAME", payload: { game: gameId }});
   }
 
   return {
-    startGame,
+    connectToLobby,
+    createGame,
+    joinGame,
     username: state.username,
-    location: state.location
+    location: state.location,
+    connected: state.username != ''
   }
 }
 

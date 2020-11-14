@@ -4,7 +4,8 @@ import {Action, InitialStateType, Locations} from "./types/type";
 const initialState: InitialStateType = {
   messages: [],
   username: '',
-  location: Locations.NotKnown
+  location: Locations.NotKnown,
+  game: ''
 }
 
 const MoonshotGameContext = createContext<{
@@ -18,21 +19,32 @@ const MoonshotGameContext = createContext<{
 const mainReducer = (state: InitialStateType, action: Action) => {
   console.debug("mainReducer");
   switch (action.type) {
-    case "START":
-      console.log("action.location ", action.payload.location);
-      console.log("action.username ", action.payload.username);
+    case "TO_LOBBY":
+      console.log("action.payload", action.payload);
 
       return {
         messages: [],
-        username: action.payload.username || `Player on ${action.payload.location}`,
-        location: action.payload.location
+        username: action.payload.username || 'Player',
+        location: Locations.NotKnown,
+        game: ''
       }
-    case "NEW_MESSAGE":
-      console.log("action.location ", action.payload.message);
+    case "NEW_GAME":
+      console.log("action.payload", action.payload);
+
       return {
-        messages: [...state.messages, action.payload.message],
+        messages: [],
         username: state.username,
-        location: state.location
+        location: action.payload.location,
+        game: ''
+      }
+    case "TO_GAME":
+      console.log("action.payload", action.payload);
+
+      return {
+        messages: [],
+        username: state.username,
+        location: state.location,
+        game: action.payload.game
       }
     default:
       return state;

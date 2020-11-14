@@ -15,11 +15,13 @@ type InitialStateType = {
   messages: MessageType[];
   username: string;
   location: Locations;
+  game: string;
 }
 
 type Action =
-  | { type: 'START', payload: { username: string, location: Locations }}
-  | { type: 'NEW_MESSAGE', payload: { message: MessageType }};
+  | { type: 'TO_LOBBY', payload: { username: string }}
+  | { type: 'NEW_GAME', payload: { location: Locations }}
+  | { type: 'TO_GAME', payload: { game: string }};
 
 export type { MessageType, InitialStateType, Action }
 export { Locations }
