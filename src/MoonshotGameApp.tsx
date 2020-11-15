@@ -1,21 +1,23 @@
 import React from "react";
 import {MoonshotGameProvider} from "./context";
 import InitGame from "./InitGame";
-import Game from "./Game";
 import useMoonshotGame from "./useMoonshotGame";
 import {Locations} from "./types/type";
+import Place from "./component/Place";
 
 export default function MoonshotGameApp() {
-  console.debug("render MoonshotGameApp");
-  const { location } = useMoonshotGame();
+  console.info("render MoonshotGameApp");
+  const { location, username } = useMoonshotGame();
 
   return (
     <MoonshotGameProvider>
-      <Switch test={location}>
-        <Case value={Locations.NotKnown}><InitGame/></Case>
-        <Case value={Locations.Earth}><Game/></Case>
-        <Case value={Locations.Moon}><Game/></Case>
-      </Switch>
+      <div className="main-container">
+        <Switch test={location}>
+          <Case value={Locations.NotKnown}><InitGame/></Case>
+          <Case value={Locations.Earth}><Place place={location} username={username}/></Case>
+          <Case value={Locations.Moon}><Place place={location} username={username}/></Case>
+        </Switch>
+      </div>
     </MoonshotGameProvider>
   )
 }

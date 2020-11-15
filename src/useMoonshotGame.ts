@@ -9,12 +9,12 @@ const useMoonshotGame = () => {
     dispatch({ type: "TO_LOBBY", payload: { username: username }});
   }
 
-  function createGame(location: Locations) {
-    dispatch({ type: "NEW_GAME", payload: { location: location }});
+  function createGame() {
+    dispatch({ type: "NEW_GAME", payload: { }});
   }
 
-  function joinGame(gameId: string) {
-    dispatch({ type: "TO_GAME", payload: { game: gameId }});
+  function joinGame(gameId: string, location: Locations) {
+    dispatch({ type: "TO_GAME", payload: { game: gameId, location: location }});
   }
 
   return {
@@ -23,7 +23,7 @@ const useMoonshotGame = () => {
     joinGame,
     username: state.username,
     location: state.location,
-    connected: state.username != ''
+    connected: state.username !== ''
   }
 }
 

@@ -17,11 +17,10 @@ const MoonshotGameContext = createContext<{
 });
 
 const mainReducer = (state: InitialStateType, action: Action) => {
-  console.debug("mainReducer");
+  const xhr = new XMLHttpRequest();
   switch (action.type) {
     case "TO_LOBBY":
-      console.log("action.payload", action.payload);
-
+      console.log('eseguo per TO_LOBBY');
       return {
         messages: [],
         username: action.payload.username || 'Player',
@@ -29,40 +28,38 @@ const mainReducer = (state: InitialStateType, action: Action) => {
         game: ''
       }
     case "NEW_GAME":
-      console.log("action.payload", action.payload);
-
+      console.log('eseguo per NEW_GAME');
+      xhr.addEventListener('load', () => {
+        // update the state of the component with the result here
+        console.log(xhr.responseText);
+      });
+      xhr.open('POST', 'http://192.168.0.11:8080/games/create');
+      xhr.send("please");
+      return {
+        messages: [],
+        username: state.username,
+        location: Locations.NotKnown,
+        game: ''
+      }
+    case "TO_GAME":
+      console.log('eseguo per TO_GAME');
+      xhr.addEventListener('load', () => {
+        // update the state of the component with the result here
+        console.log(xhr.responseText);
+      });
+      xhr.open('POST', 'http://192.168.0.11:8080/games/join');
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify({ game: action.payload.game, username: state.username, location: action.payload.location }));
       return {
         messages: [],
         username: state.username,
         location: action.payload.location,
-        game: ''
-      }
-    case "TO_GAME":
-      console.log("action.payload", action.payload);
-
-      return {
-        messages: [],
-        username: state.username,
-        location: state.location,
         game: action.payload.game
       }
     default:
       return state;
   }
 };
-
-// const messageReducer = (state: MessageType[], action: any): MessageType[] => {
-//   console.log("messageReducer, do " + action + " on state " + state);
-//   return state;
-// };
-// const usernameReducer = (state: string, action: any): string => {
-//   console.log("usernameReducer, do " + action + " on state " + state);
-//   return state;
-// };
-// const locationReducer = (state: Locations, action: any): Locations => {
-//   console.log("locationReducer, do " + action + " on state " + state);
-//   return state;
-// };
 
 const MoonshotGameProvider: React.FC = ({ children }) => {
   console.debug("render MoonshotGameProvider");

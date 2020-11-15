@@ -12,31 +12,23 @@ const InitGame = () => {
     setData({...data, username: event.target.value });
   }
 
-  const handleSubmit = (event: any) => {
+  const chooseNameAndConnect = (event: any) => {
     console.debug('submit the form', event);
-    event.preventDefault();
     setData({...data, isSubmitting: true });
     connectToLobby(data.username);
   };
 
   if (!connected) {
     return (
-      <div className="username-page-container">
-        <h1 className="title">Name and Location</h1>
-        <form onSubmit={handleSubmit}>
+      <div>
+        <h1>Name</h1>
 
-          <div className="form-group">
-            <label>
-              Name
-              <input value={data.username} onChange={usernameChange} type="text" className="form-control" placeholder="Username"/>
-            </label>
-          </div>
+        <input value={data.username} onChange={usernameChange} type="text" placeholder="Username"/>
 
-          <button type="submit" disabled={data.isSubmitting} className="accent username-submit">
-            {data.isSubmitting ? ("Loading...") : ("START")}
-          </button>
+        <button disabled={data.isSubmitting} onClick={chooseNameAndConnect}>
+          {data.isSubmitting ? ("Loading...") : ("START")}
+        </button>
 
-        </form>
       </div>
     )
   } else {
