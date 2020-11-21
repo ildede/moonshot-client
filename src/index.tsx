@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import MoonshotGameApp from "./MoonshotGameApp";
+import MainApp from "./MainApp";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MoonshotGameApp />
+    <MainApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
