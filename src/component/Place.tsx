@@ -1,38 +1,76 @@
 import React, {useState} from 'react';
 import {Locations} from "../types/type";
+import {IMessage} from "@stomp/stompjs";
+import StompClient from "react-stomp-client";
 
-function Place(props: { place: Locations, username: string }): JSX.Element {
-  const [message, setMessage] = useState('');
+interface ChatMessage {
+  location: Locations;
+  message: string;
+}
+
+
+const MessageSender = (props: { place: Locations, gameId?: string }) => {
+  const [message, setMessage] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const messageChange = (event: any) => {
+    setMessage(event.target.value);
+  }
 
   const sendMessage = () => {
-    console.log('send message:', message);
+    if (message) {
+      setIsSubmitting(true);
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        setIsSubmitting(false);
+      });
+      xhr.open('POST', 'http://localhost:8080/games/message');
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify({ game: props.gameId, location: props.place, message: message }));
+    }
   }
 
   return (
     <div>
-      <div>
-        <div>
-          <h1>{props.place}</h1>
-          <p>Hi {props.username}, tell to your teammate what to do.</p>
-        </div>
-
-        <ul id="messageArea">
-        </ul>
-
-        <div>
-          <div>
-            <input
-              type="text" autoComplete="off"
-              placeholder="Type a message..."
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-            />
-            <button onClick={sendMessage}>Send</button>
-          </div>
-        </div>
-
-      </div>
+      <input
+        type="text" autoComplete="off"
+        placeholder="Type a message..."
+        value={message}
+        onChange={messageChange}
+      />
+      <button disabled={isSubmitting} onClick={sendMessage}>
+        {isSubmitting ? ("Wait...") : ("Send")}
+      </button>
     </div>
+  )
+}
+
+
+function Place(props: { place: Locations, username: string, gameId?: string }): JSX.Element {
+  const [list, setList] = React.useState<ChatMessage[]>([]);
+
+  const handleMessage = (stompMessage: IMessage) => {
+    const parsed: any = JSON.parse(stompMessage.body);
+    setList([...list, { location: parsed.location, message: parsed.message }])
+  }
+
+  return (
+    <>
+      <h2>{props.place}</h2>
+      <p>Hi {props.username}, tell to your teammate what to do.</p>
+
+      <div className="message-container">
+        <StompClient endpoint="ws://localhost:8080/ws"
+                     topic={`games/list/${props.gameId}`}
+                     onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
+        >
+          {list.map((v: ChatMessage, i) => <li key={i}>{v.location}: {v.message}</li>)}
+        </StompClient>
+      </div>
+
+      <MessageSender place={props.place} gameId={props.gameId} />
+
+    </>
   )
 }
 

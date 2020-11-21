@@ -2,6 +2,7 @@ import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "
 import {Locations} from "./types/type";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
+import Place from "./component/Place";
 
 const GameContext = React.createContext<{
   username: string, place: string, gameId: string,
@@ -49,11 +50,8 @@ const PlaceChooser = () => {
 
   const createGame = (place: string) => {
     setIsSubmitting(true);
-    console.log('Creo NEW_GAME');
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      console.log(xhr.responseText);
       const parse = JSON.parse(xhr.responseText);
       setGameId(parse.id);
       setPlace(place);
@@ -74,10 +72,7 @@ const ActualGame = () => {
   const { username, place, gameId } = useContext(GameContext)
   return (
     <>
-      <h1>PLAY!</h1>
-      <p>User: {username}</p>
-      <p>Place: {place}</p>
-      <p>Game: {gameId}</p>
+      <Place place={place === 'MOON' ? Locations.Moon : Locations.Earth} username={username} gameId={gameId}/>
     </>
   )
 }
@@ -115,9 +110,7 @@ const GameJoiner = () => {
   useEffect(() => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
       const parsed: any[] = JSON.parse(xhr.responseText);
-      console.log('parsed', parsed);
       const mapped: WaitingGame[] = parsed
         .filter(el => !el.userOnEarth || !el.userOnMoon)
         .map(el => {
@@ -128,17 +121,14 @@ const GameJoiner = () => {
             username: el.userOnEarth ? el.userOnEarth : el.userOnMoon
           }
         })
-      console.log('mapped', mapped);
       setList(mapped);
     });
     xhr.open('GET', 'http://localhost:8080/games/list');
-    // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send();
   }, [setList]);
 
   const handleMessage = (stompMessage: IMessage) => {
     const parsed = JSON.parse(stompMessage.body);
-    console.log(parsed);
     if (parsed.type === 'REMOVE_GAME') {
       setList(list.filter(g => g.gameId !== parsed.content));
     }
@@ -147,11 +137,8 @@ const GameJoiner = () => {
     }
   }
   const joinGame = (gameId: string, place: string) => {
-    console.log('Faccio JOIN a un game esistente', { game: gameId, username: username, location: place });
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      console.log('risposta server', xhr.responseText);
       setGameId(gameId);
       setPlace(place);
     });
