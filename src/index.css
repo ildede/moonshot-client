@@ -93,15 +93,15 @@ body {
 .main-container {
   background: #fff;
   box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-  border-radius: 5px;
+  border-radius: 10px;
   width: 100%;
-  max-width: 70vw;
-  max-height: 80vh;
+  max-width: 84vw;
+  max-height: 84vh;
   display: inline-block;
   padding: 1em 2em 1em;
-  min-height: 40vh;
+  min-height: 84vh;
   position: absolute;
-  top: 10%;
+  top: 8%;
   left: 0;
   right: 0;
   margin: 0 auto 0;
@@ -112,4 +112,9 @@ body {
   background-color: #f4f4f4;
   overflow-y: auto;
   height: 50vh;
+}
+
+.game-list {
+  max-height: 50vh;
+  overflow-y: scroll;
 }

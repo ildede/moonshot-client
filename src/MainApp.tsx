@@ -152,7 +152,7 @@ const GameJoiner = () => {
                  topic="games/list"
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >
-      <div>
+      <div className="game-list">
         {list.map((v, i) => {
           return (
             <p key={v.gameId}>
