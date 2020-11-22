@@ -110,8 +110,29 @@ body {
 
 .message-container {
   background-color: #f4f4f4;
+  height: 60vh;
+  width: 27vw;
+  float: right;
+  position: relative;
+}
+
+.message-box {
+  max-height: 56vh;
   overflow-y: auto;
-  height: 50vh;
+}
+.message-sender {
+  position: absolute;
+  bottom: 0;
+  width: 27vw;
+  height: 4vh;
+  background-color: #777777;
+}
+
+.game-container {
+  background-color: #f4f4f4;
+  height: 60vh;
+  width: 50vw;
+  float: left;
 }
 
 .game-list {

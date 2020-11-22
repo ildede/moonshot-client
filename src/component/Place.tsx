@@ -31,7 +31,7 @@ const MessageSender = (props: { place: Locations, gameId?: string }) => {
   }
 
   return (
-    <div>
+    <>
       <input
         type="text" autoComplete="off"
         placeholder="Type a message..."
@@ -41,7 +41,7 @@ const MessageSender = (props: { place: Locations, gameId?: string }) => {
       <button disabled={isSubmitting} onClick={sendMessage}>
         {isSubmitting ? ("Wait...") : ("Send")}
       </button>
-    </div>
+    </>
   )
 }
 
@@ -59,16 +59,23 @@ function Place(props: { place: Locations, username: string, gameId?: string }): 
       <h2>{props.place}</h2>
       <p>Hi {props.username}, tell to your teammate what to do.</p>
 
-      <div className="message-container">
-        <StompClient endpoint="ws://localhost:8080/ws"
-                     topic={`games/list/${props.gameId}`}
-                     onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
-        >
-          {list.map((v: ChatMessage, i) => <li key={i}>{v.location}: {v.message}</li>)}
-        </StompClient>
+      <div className="game-container">
+
       </div>
 
-      <MessageSender place={props.place} gameId={props.gameId} />
+      <div className="message-container">
+        <div className="message-box">
+          <StompClient endpoint="ws://localhost:8080/ws"
+                       topic={`games/list/${props.gameId}`}
+                       onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
+          >
+            {list.map((v: ChatMessage, i) => <li key={i}>{v.location}: {v.message}</li>)}
+          </StompClient>
+        </div>
+        <div className="message-sender">
+          <MessageSender place={props.place} gameId={props.gameId} />
+        </div>
+      </div>
 
     </>
   )
