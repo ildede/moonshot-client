@@ -100,7 +100,7 @@ const ClickableShape = (props: { key: number, name: string, style: React.CSSProp
   const [clicked, setClicked] = useState(false);
 
   return (
-    <div style={ clicked ? {border: "2px solid black", width: "min-content", padding: "2px", margin: "2px"} : { padding: "4px", margin: "2px"}}>
+    <div style={ clicked ? {border: "2px solid black", width: "min-content", padding: "2px", margin: "2px", float: "left"} : { padding: "4px", margin: "2px", float: "left"} }>
       <input
         style={{display: "none"}}
         name={props.name}
@@ -139,11 +139,11 @@ function PlayMoon(props: { gameId: string }): JSX.Element {
     {pieces.map((p, i) => {
       switch (p.shape) {
         case "square":
-          return (<div key={i} style={{height: "50px", width: "50px", backgroundColor: p.color}}/>);
+          return (<div key={i} style={{height: "50px", width: "50px", backgroundColor: p.color, margin: "6px"}}/>);
         case "circle":
-          return (<div key={i} style={{height: "50px", width: "50px", borderRadius: "50px", backgroundColor: p.color}}/>);
+          return (<div key={i} style={{height: "50px", width: "50px", borderRadius: "50px", backgroundColor: p.color, margin: "6px"}}/>);
         case "triangle":
-          return (<div key={i} style={{height: "0", width: "0", borderBottom: `50px solid ${p.color}`, borderTop: "0px solid transparent", borderLeft: "25px solid transparent", borderRight: "25px solid transparent"}}/>);
+          return (<div key={i} style={{height: "0", width: "0", borderBottom: `50px solid ${p.color}`, borderTop: "0px solid transparent", borderLeft: "25px solid transparent", borderRight: "25px solid transparent", margin: "6px"}}/>);
         default:
           return <></>
       }})}
