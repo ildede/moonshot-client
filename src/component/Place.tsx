@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useContext, useEffect, useState} from 'react';
 import {Locations} from "../types/type";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
@@ -45,18 +45,20 @@ const MessageSender = (props: { place: Locations, gameId?: string }) => {
   )
 }
 
-function PlayEarth() {
+function PlayEarth(props: { gameId: string }): JSX.Element {
   const [pieces, setPieces] = React.useState<Piece[]>([]);
 
   useEffect(() => {
-    setPieces([
-      {color: "red", shape: "circle"},
-      {color: "blue", shape: "square"},
-      {color: "green", shape: "triangle"},
-      {color: "green", shape: "circle"},
-      {color: "red", shape: "square"},
-      {color: "blue", shape: "triangle"}
-    ])
+    if (pieces.length === 0) {
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        const parsed: { earthPieces: Piece[] } = JSON.parse(xhr.responseText);
+        console.log('parsed', parsed);
+        setPieces(parsed.earthPieces);
+      });
+      xhr.open('GET', 'http://localhost:8080/games/'+props.gameId);
+      xhr.send();
+    }
   }, [setPieces])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -116,11 +118,20 @@ interface Piece {
   shape: string;
   selected?: boolean;
 }
-function PlayMoon() {
+function PlayMoon(props: { gameId: string }): JSX.Element {
   const [pieces, setPieces] = React.useState<Piece[]>([]);
 
   useEffect(() => {
-    setPieces([{color: "red", shape: "circle"}, {color: "blue", shape: "square"}, {color: "green", shape: "triangle"}])
+    if (pieces.length === 0) {
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        const parsed: { moonPieces: Piece[] } = JSON.parse(xhr.responseText);
+        console.log('parsed', parsed);
+        setPieces(parsed.moonPieces);
+      });
+      xhr.open('GET', 'http://localhost:8080/games/'+props.gameId);
+      xhr.send();
+    }
   }, [setPieces])
 
   return (<div>
@@ -155,8 +166,8 @@ function Place(props: { place: Locations, username: string, gameId?: string }): 
       <div className="game-container">
         {
           props.place === Locations.Earth
-            ? <PlayEarth />
-            : <PlayMoon />
+            ? <PlayEarth gameId={props.gameId || "empty"}/>
+            : <PlayMoon gameId={props.gameId || "empty"}/>
         }
       </div>
 
