@@ -47,6 +47,7 @@ const MessageSender = (props: { place: Locations, gameId?: string }) => {
 
 function PlayEarth(props: { gameId: string }): JSX.Element {
   const [pieces, setPieces] = React.useState<Piece[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     if (pieces.length === 0) {
@@ -63,7 +64,16 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Submit:", pieces.filter(p => p.selected));
+    const selected: Piece[] = pieces.filter(p => p.selected);
+    setIsSubmitting(true);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', () => {
+      setIsSubmitting(false);
+    });
+    xhr.open('POST', 'http://localhost:8080/games/'+props.gameId+'/check');
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(selected));
+
   }
   const selectElement = (element: string, selected: boolean) => {
     setPieces(
