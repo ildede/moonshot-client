@@ -150,7 +150,7 @@ const GameJoiner = () => {
   }
 
   return (
-    <StompClient endpoint="ws://moonshot-server-spring.herokuapp.com/ws"
+    <StompClient endpoint="wss://moonshot-server-spring.herokuapp.com/ws"
                  topic="games/list"
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >

@@ -182,7 +182,7 @@ function Place(props: { place: string, username: string, gameId?: string }): JSX
 
       <div className="message-container">
         <div className="message-box">
-          <StompClient endpoint="ws://moonshot-server-spring.herokuapp.com/ws"
+          <StompClient endpoint="wss://moonshot-server-spring.herokuapp.com/ws"
                        topic={`games/list/${props.gameId}`}
                        onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
           >
