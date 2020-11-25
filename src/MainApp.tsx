@@ -1,5 +1,4 @@
 import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
-import {Locations} from "./types/type";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 import Place from "./component/Place";
@@ -17,7 +16,10 @@ const GameContext = React.createContext<{
   setPlace: () => null,
   setGameId: () => null
 });
-
+enum Locations {
+  Earth = 'EARTH',
+  Moon = 'MOON'
+}
 const UserNameChooser = () => {
   const { setUsername } = useContext(GameContext);
   const [name, setName] = useState<string>('');

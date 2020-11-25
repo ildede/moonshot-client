@@ -1,15 +1,13 @@
-import React, {FormEvent, useContext, useEffect, useState} from 'react';
-import {Locations} from "../types/type";
+import React, {FormEvent, useEffect, useState} from 'react';
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 
 interface ChatMessage {
-  location: Locations;
+  location: 'MOON' | 'EARTH';
   message: string;
 }
 
-
-const MessageSender = (props: { place: Locations, gameId?: string }) => {
+const MessageSender = (props: { place: string, gameId?: string }) => {
   const [message, setMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -64,16 +62,17 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const selected: Piece[] = pieces.filter(p => p.selected);
-    setIsSubmitting(true);
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
-      setIsSubmitting(false);
-    });
-    xhr.open('POST', 'http://localhost:8080/games/'+props.gameId+'/check');
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify(selected));
-
+    if (!isSubmitting) {
+      const selected: Piece[] = pieces.filter(p => p.selected);
+      setIsSubmitting(true);
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        setIsSubmitting(false);
+      });
+      xhr.open('POST', 'http://localhost:8080/games/'+props.gameId+'/check');
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify(selected));
+    }
   }
   const selectElement = (element: string, selected: boolean) => {
     setPieces(
@@ -100,7 +99,7 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
             default:
               return <></>
           }})}
-          <button type="submit">SUBMIT</button>
+        <button type="submit">SUBMIT</button>
       </form>
     </div>
   )
@@ -160,7 +159,7 @@ function PlayMoon(props: { gameId: string }): JSX.Element {
   </div>)
 }
 
-function Place(props: { place: Locations, username: string, gameId?: string }): JSX.Element {
+function Place(props: { place: string, username: string, gameId?: string }): JSX.Element {
   const [list, setList] = React.useState<ChatMessage[]>([]);
 
   const handleMessage = (stompMessage: IMessage) => {
@@ -175,7 +174,7 @@ function Place(props: { place: Locations, username: string, gameId?: string }): 
 
       <div className="game-container">
         {
-          props.place === Locations.Earth
+          props.place === 'EARTH'
             ? <PlayEarth gameId={props.gameId || "empty"}/>
             : <PlayMoon gameId={props.gameId || "empty"}/>
         }
