@@ -22,7 +22,7 @@ const MessageSender = (props: { place: string, gameId?: string }) => {
       xhr.addEventListener('load', () => {
         setIsSubmitting(false);
       });
-      xhr.open('POST', 'http://localhost:8080/games/message');
+      xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/message');
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       xhr.send(JSON.stringify({ game: props.gameId, location: props.place, message: message }));
     }
@@ -55,10 +55,10 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
         console.log('parsed', parsed);
         setPieces(parsed.earthPieces);
       });
-      xhr.open('GET', 'http://localhost:8080/games/'+props.gameId);
+      xhr.open('GET', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId);
       xhr.send();
     }
-  }, [setPieces])
+  }, [setPieces, pieces.length, props.gameId])
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,7 +69,7 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
       xhr.addEventListener('load', () => {
         setIsSubmitting(false);
       });
-      xhr.open('POST', 'http://localhost:8080/games/'+props.gameId+'/check');
+      xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId+'/check');
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       xhr.send(JSON.stringify(selected));
     }
@@ -99,7 +99,7 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
             default:
               return <></>
           }})}
-        <button type="submit">SUBMIT</button>
+          <button type="submit">SUBMIT</button>
       </form>
     </div>
   )
@@ -138,10 +138,10 @@ function PlayMoon(props: { gameId: string }): JSX.Element {
         console.log('parsed', parsed);
         setPieces(parsed.moonPieces);
       });
-      xhr.open('GET', 'http://localhost:8080/games/'+props.gameId);
+      xhr.open('GET', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId);
       xhr.send();
     }
-  }, [setPieces])
+  }, [setPieces, pieces.length, props.gameId])
 
   return (<div>
     <h3>Help your teammate choose the right option</h3>
@@ -182,7 +182,7 @@ function Place(props: { place: string, username: string, gameId?: string }): JSX
 
       <div className="message-container">
         <div className="message-box">
-          <StompClient endpoint="ws://localhost:8080/ws"
+          <StompClient endpoint="ws://moonshot-server-spring.herokuapp.com/ws"
                        topic={`games/list/${props.gameId}`}
                        onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
           >

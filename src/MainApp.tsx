@@ -58,7 +58,7 @@ const PlaceChooser = () => {
       setGameId(parse.id);
       setPlace(place);
     });
-    xhr.open('POST', 'http://localhost:8080/games/create');
+    xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/create');
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({place: place, username: username}));
   };
@@ -125,7 +125,7 @@ const GameJoiner = () => {
         })
       setList(mapped);
     });
-    xhr.open('GET', 'http://localhost:8080/games/list');
+    xhr.open('GET', 'https://moonshot-server-spring.herokuapp.com/games/list');
     xhr.send();
   }, [setList]);
 
@@ -144,13 +144,13 @@ const GameJoiner = () => {
       setGameId(gameId);
       setPlace(place);
     });
-    xhr.open('POST', 'http://localhost:8080/games/join');
+    xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/join');
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({ game: gameId, username: username, location: place }));
   }
 
   return (
-    <StompClient endpoint="ws://localhost:8080/ws"
+    <StompClient endpoint="ws://moonshot-server-spring.herokuapp.com/ws"
                  topic="games/list"
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >
