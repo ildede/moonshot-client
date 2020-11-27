@@ -1,46 +1,12 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
+import {MessageSender} from "./MessageSender";
+import {httpServer, websocketServer} from "../environment";
 
 interface ChatMessage {
   location: 'MOON' | 'EARTH';
   message: string;
-}
-
-const MessageSender = (props: { place: string, gameId?: string }) => {
-  const [message, setMessage] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const messageChange = (event: any) => {
-    setMessage(event.target.value);
-  }
-
-  const sendMessage = () => {
-    if (message) {
-      setIsSubmitting(true);
-      const xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', () => {
-        setIsSubmitting(false);
-      });
-      xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/message');
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xhr.send(JSON.stringify({ game: props.gameId, location: props.place, message: message }));
-    }
-  }
-
-  return (
-    <>
-      <input
-        type="text" autoComplete="off"
-        placeholder="Type a message..."
-        value={message}
-        onChange={messageChange}
-      />
-      <button disabled={isSubmitting} onClick={sendMessage}>
-        {isSubmitting ? ("Wait...") : ("Send")}
-      </button>
-    </>
-  )
 }
 
 function PlayEarth(props: { gameId: string }): JSX.Element {
@@ -55,7 +21,7 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
         console.log('parsed', parsed);
         setPieces(parsed.earthPieces);
       });
-      xhr.open('GET', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId);
+      xhr.open('GET', httpServer+'/games/'+props.gameId);
       xhr.send();
     }
   }, [setPieces, pieces.length, props.gameId])
@@ -69,7 +35,7 @@ function PlayEarth(props: { gameId: string }): JSX.Element {
       xhr.addEventListener('load', () => {
         setIsSubmitting(false);
       });
-      xhr.open('POST', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId+'/check');
+      xhr.open('POST', httpServer+'/games/'+props.gameId+'/check');
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       xhr.send(JSON.stringify(selected));
     }
@@ -138,7 +104,7 @@ function PlayMoon(props: { gameId: string }): JSX.Element {
         console.log('parsed', parsed);
         setPieces(parsed.moonPieces);
       });
-      xhr.open('GET', 'https://moonshot-server-spring.herokuapp.com/games/'+props.gameId);
+      xhr.open('GET', httpServer+'/games/'+props.gameId);
       xhr.send();
     }
   }, [setPieces, pieces.length, props.gameId])
@@ -182,7 +148,7 @@ function Place(props: { place: string, username: string, gameId?: string }): JSX
 
       <div className="message-container">
         <div className="message-box">
-          <StompClient endpoint="wss://moonshot-server-spring.herokuapp.com/ws"
+          <StompClient endpoint={websocketServer+"/ws"}
                        topic={`games/list/${props.gameId}`}
                        onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
           >
