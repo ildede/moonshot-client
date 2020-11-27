@@ -15,6 +15,7 @@ export const MessageSender = (props: { place: string, gameId?: string }) => {
       const xhr = new XMLHttpRequest();
       xhr.addEventListener('load', () => {
         setIsSubmitting(false);
+        setMessage('');
       });
       xhr.open('POST', httpServer + '/games/message');
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
