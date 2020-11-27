@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {httpServer} from "../environment";
+import {httpServer} from "../../../environment";
 
 export const MessageSender = (props: { place: string, gameId?: string }) => {
   const [message, setMessage] = useState<string>('');

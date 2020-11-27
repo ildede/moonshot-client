@@ -2,7 +2,7 @@ import React from 'react';
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 import {MessageSender} from "./MessageSender";
-import {websocketServer} from "../environment";
+import {websocketServer} from "../../../environment";
 import {PlayEarth} from "./PlayEarth";
 import {ChatMessage} from "../model/interfaces";
 import {PlayMoon} from "./PlayMoon";

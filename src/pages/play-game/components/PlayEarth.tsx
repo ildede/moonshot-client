@@ -1,5 +1,5 @@
 import React, {FormEvent, useEffect, useState} from "react";
-import {httpServer} from "../environment";
+import {httpServer} from "../../../environment";
 import {Piece} from "../model/interfaces";
 
 const ClickableShape = (props: { key: number, name: string, style: React.CSSProperties, selectElement: (element: string, selected: boolean) => void }) => {

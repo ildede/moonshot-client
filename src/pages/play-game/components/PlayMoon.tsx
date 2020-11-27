@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Piece} from "../model/interfaces";
-import {httpServer} from "../environment";
+import {httpServer} from "../../../environment";
 
 export function PlayMoon(props: { gameId: string }): JSX.Element {
   const [pieces, setPieces] = React.useState<Piece[]>([]);
