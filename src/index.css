@@ -146,4 +146,37 @@ body {
   background-size: contain;
   min-height: 100%;
   min-width: 100%;
+  position: relative;
+}
+.moon-container .scuttle {
+  width: 4em;
+  left: 77%;
+  top: 25%;
+  position: absolute;
+}
+.moon-container .body {
+  width: 3em;
+  left: 21%;
+  top: 17%;
+  position: absolute;
+  transform: rotate(-20deg);
+}
+.moon-container .bottom {
+  width: 5em;
+  left: 21%;
+  top: 50%;
+  position: absolute;
+  transform: rotate(-10deg);
+}
+.moon-container .top {
+  width: 2.3em;
+  left: 77%;
+  top: 5%;
+  position: absolute;
+}
+.moon-container .door {
+  width: 2em;
+  left: 80%;
+  top: 45%;
+  position: absolute;
 }
