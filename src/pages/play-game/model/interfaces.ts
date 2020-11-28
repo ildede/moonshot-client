@@ -4,8 +4,6 @@ export interface ChatMessage {
 }
 
 export interface Piece {
-  color: string;
-  shape: string;
   part: string;
   version: number;
   selected?: boolean;
