@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import {httpServer} from "../../../environment";
 import {Piece} from "../model/interfaces";
 
-const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (element: string) => void }) => {
+const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (part: string, version: number) => void }) => {
 
   return (
-    <div className="part" onClick={() => props.selectElement(`${props.part}-${props.version}`)}>
+    <div className="part" onClick={() => props.selectElement(props.part, props.version)}>
       <img src={`img/${props.part}/${props.version}.png`}
            alt={`${props.part}, colors from version ${props.version}.png`}
       />
@@ -43,11 +43,11 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
       xhr.send(JSON.stringify(selected));
     }
   }
-  const selectElement = (element: string) => {
+  const selectElement = (selectedPart: string, selectedVersion: number) => {
     setPieces(
       pieces.map((p) => {
-        if (element.startsWith(p.part)) {
-          p.selected = element.endsWith(p.version.toString());
+        if (p.part === selectedPart) {
+          p.selected = p.version === selectedVersion;
         }
         return p;
       })
