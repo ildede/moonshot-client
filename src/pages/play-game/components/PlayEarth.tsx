@@ -16,7 +16,7 @@ const ClickableImg = (props: { key: number, part: string, version: number, selec
       />
       <img src={`img/${props.part}/${props.version}.png`}
            className={props.part}
-           alt={`Image of ${props.part}, colors from version ${props.version}.png`}
+           alt={`${props.part}, colors from version ${props.version}.png`}
            onClick={() => { setClicked(!clicked);props.selectElement(`${props.part}-${props.version}`, !clicked);}}
       />
     </div>

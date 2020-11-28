@@ -21,7 +21,7 @@ export function PlayMoon(props: { gameId: string }): JSX.Element {
   return (
     <div className="moon-container">
       {pieces.map((p, i) => {
-        return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`Image of ${p.part}, colors from version ${p.version}.png`}/>);
+        return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
       })}
     </div>
   )
