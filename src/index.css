@@ -180,3 +180,55 @@ body {
   top: 45%;
   position: absolute;
 }
+
+.earth-container {
+  background-image: url('img/hangar.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 100%;
+  min-width: 100%;
+  position: relative;
+}
+.earth-container form {
+  width: 10em;
+  height: 44.7vh;
+  overflow-y: scroll;
+  float: left;
+}
+.earth-container button {
+  float: right;
+}
+.earth-container .part {
+  width: 8em;
+}
+
+.earth-container .scuttle {
+  left: 46%;
+  top: 33%;
+  position: absolute;
+  z-index: 12;
+}
+.earth-container .body {
+  left: 43%;
+  top: 30%;
+  position: absolute;
+  z-index: 10;
+}
+.earth-container .bottom {
+  left: 39.5%;
+  top: 44%;
+  position: absolute;
+  z-index: 12;
+}
+.earth-container .top {
+  left: 46%;
+  top: 19%;
+  position: absolute;
+  z-index: 12;
+}
+.earth-container .door {
+  left: 50%;
+  top: 39%;
+  position: absolute;
+  z-index: 12;
+}

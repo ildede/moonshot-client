@@ -2,11 +2,12 @@ import React, {FormEvent, useEffect, useState} from "react";
 import {httpServer} from "../../../environment";
 import {Piece} from "../model/interfaces";
 
-const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (element: string, selected: boolean) => void }) => {
+const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (element: string) => void }) => {
   const [clicked, setClicked] = useState(false);
 
   return (
-    <div style={ clicked ? {border: "2px solid black", width: "min-content", padding: "2px", margin: "2px", float: "left"} : { padding: "4px", margin: "2px", float: "left"} }>
+    <div className="part" style={ clicked ? {border: "2px solid black", padding: "2px", margin: "2px"} : { padding: "4px", margin: "2px"} }
+         onClick={() => props.selectElement(`${props.part}-${props.version}`)}>
       <input
         style={{display: "none"}}
         name={`${props.part}-${props.version}`}
@@ -15,9 +16,7 @@ const ClickableImg = (props: { key: number, part: string, version: number, selec
         onChange={() => setClicked(!clicked)}
       />
       <img src={`img/${props.part}/${props.version}.png`}
-           className={props.part}
            alt={`${props.part}, colors from version ${props.version}.png`}
-           onClick={() => { setClicked(!clicked);props.selectElement(`${props.part}-${props.version}`, !clicked);}}
       />
     </div>
   )
@@ -40,8 +39,7 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
     }
   }, [setPieces, pieces.length, props.gameId])
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (!isSubmitting) {
       const selected: Piece[] = pieces.filter(p => p.selected);
       setIsSubmitting(true);
@@ -54,19 +52,19 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
       xhr.send(JSON.stringify(selected));
     }
   }
-  const selectElement = (element: string, selected: boolean) => {
+  const selectElement = (element: string) => {
     setPieces(
       pieces.map((p) => {
-        if (element.startsWith(p.part) && element.endsWith(p.version.toString())) {
-          p.selected = selected;
+        if (element.startsWith(p.part)) {
+          p.selected = element.endsWith(p.version.toString());
         }
         return p;
       })
     )
   }
   return (
-    <div>
-      <form onSubmit={(event) => handleSubmit(event)}>
+    <div className="earth-container">
+      <form onSubmit={(event) => event.preventDefault()}>
         {pieces.map((p, i) => {
           return (<ClickableImg key={i}
                                 part={p.part}
@@ -74,8 +72,13 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
                                 selectElement={selectElement}
           />);
         })}
-        <button type="submit">LAUNCH!</button>
       </form>
+      <button onClick={() => handleSubmit()}>LAUNCH!</button>
+      {pieces
+        .filter((p) => p.selected)
+        .map((p, i) => {
+          return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
+        })}
     </div>
   )
 }
