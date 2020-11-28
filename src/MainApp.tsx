@@ -26,10 +26,6 @@ const MainApp = (): JSX.Element => {
     <GameContext.Provider value={{ username: username, setUsername: setUsername, gameId: gameId, setGameId: setGameId, place: place, setPlace: setPlace }}>
       <div className="main-container">
         {username && gameId && place ? <ActualGame/> : <InitGameInfo/>}
-        <small>
-          You are running this application in <b>{process.env.NODE_ENV}</b> mode.<br/>
-          Server url is <b>{httpServer}</b>
-        </small>
       </div>
     </GameContext.Provider>
   )
