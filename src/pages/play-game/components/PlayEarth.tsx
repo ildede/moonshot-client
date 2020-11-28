@@ -1,20 +1,11 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {httpServer} from "../../../environment";
 import {Piece} from "../model/interfaces";
 
 const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (element: string) => void }) => {
-  const [clicked, setClicked] = useState(false);
 
   return (
-    <div className="part" style={ clicked ? {border: "2px solid black", padding: "2px", margin: "2px"} : { padding: "4px", margin: "2px"} }
-         onClick={() => props.selectElement(`${props.part}-${props.version}`)}>
-      <input
-        style={{display: "none"}}
-        name={`${props.part}-${props.version}`}
-        type="checkbox"
-        checked={clicked}
-        onChange={() => setClicked(!clicked)}
-      />
+    <div className="part" onClick={() => props.selectElement(`${props.part}-${props.version}`)}>
       <img src={`img/${props.part}/${props.version}.png`}
            alt={`${props.part}, colors from version ${props.version}.png`}
       />
