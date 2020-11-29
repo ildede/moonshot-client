@@ -187,7 +187,6 @@ body {
   background-size: contain;
   min-height: 100%;
   min-width: 100%;
-  position: relative;
 }
 .earth-container form {
   width: 10em;
@@ -202,33 +201,41 @@ body {
   width: 8em;
 }
 
-.earth-container .scuttle {
-  left: 46%;
-  top: 33%;
+.rocket-container {
+  left: 30%;
+  top: 50%;
+  width: 200px;
+  height: 250px;
+  position: relative;
+}
+
+.rocket-container .scuttle {
+  left: 49.5%;
+  top: 36%;
   position: absolute;
   z-index: 12;
 }
-.earth-container .body {
-  left: 43%;
+.rocket-container .body {
+  left: 40%;
   top: 30%;
   position: absolute;
   z-index: 10;
 }
-.earth-container .bottom {
-  left: 39.5%;
-  top: 44%;
+.rocket-container .bottom {
+  left: 30.5%;
+  top: 54%;
   position: absolute;
   z-index: 12;
 }
-.earth-container .top {
-  left: 46%;
-  top: 19%;
+.rocket-container .top {
+  left: 47.5%;
+  top: 9%;
   position: absolute;
   z-index: 12;
 }
-.earth-container .door {
-  left: 50%;
-  top: 39%;
+.rocket-container .door {
+  left: 61%;
+  top: 46%;
   position: absolute;
   z-index: 12;
 }

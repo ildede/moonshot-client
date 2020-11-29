@@ -65,11 +65,13 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
         })}
       </form>
       <button onClick={() => handleSubmit()}>LAUNCH!</button>
-      {pieces
-        .filter((p) => p.selected)
-        .map((p, i) => {
-          return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
-        })}
+      <div className="rocket-container">
+        {pieces
+          .filter((p) => p.selected)
+          .map((p, i) => {
+            return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
+          })}
+      </div>
     </div>
   )
 }
