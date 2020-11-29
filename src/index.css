@@ -130,8 +130,7 @@ body {
 
 .game-container {
   background-color: #f4f4f4;
-  height: 60vh;
-  width: 50vw;
+  width: 40vw;
   float: left;
 }
 
@@ -182,60 +181,63 @@ body {
 }
 
 .earth-container {
-  background-image: url('img/hangar.png');
+  background-image: url('img/hangar-cut.png');
+  background-size: cover;
   background-repeat: no-repeat;
-  background-size: contain;
-  min-height: 100%;
-  min-width: 100%;
+  min-height: 30vw;
+  width: 40vw;
 }
 .earth-container form {
-  width: 10em;
-  height: 44.7vh;
+  width: 14vw;
+  height: 30vw;
   overflow-y: scroll;
+  overflow-x: hidden;
   float: left;
 }
 .earth-container button {
   float: right;
 }
 .earth-container .part {
+  padding-top: 10%;
   width: 8em;
 }
 
 .rocket-container {
-  left: 30%;
-  top: 50%;
-  width: 200px;
-  height: 250px;
+  left: 18vw;
+  top: 7vh;
+  width: 15vw;
+  height: 20vw;
   position: relative;
+  transform: scale(1.5);
 }
 
 .rocket-container .scuttle {
-  left: 49.5%;
-  top: 36%;
+  left: 42%;
+  top: 37%;
   position: absolute;
   z-index: 12;
 }
 .rocket-container .body {
-  left: 40%;
+  left: 30%;
   top: 30%;
   position: absolute;
   z-index: 10;
 }
 .rocket-container .bottom {
-  left: 30.5%;
-  top: 54%;
+  left: 18.5%;
+  top: 57.5%;
   position: absolute;
   z-index: 12;
 }
 .rocket-container .top {
-  left: 47.5%;
-  top: 9%;
+  left: 39%;
+  top: 5%;
   position: absolute;
   z-index: 12;
 }
 .rocket-container .door {
-  left: 61%;
-  top: 46%;
+  left: 56%;
+  top: 48%;
   position: absolute;
   z-index: 12;
 }
