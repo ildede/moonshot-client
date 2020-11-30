@@ -5,9 +5,10 @@ import {Piece} from "../model/interfaces";
 const ClickableImg = (props: { key: number, part: string, version: number, selectElement: (part: string, version: number) => void }) => {
 
   return (
-    <div className="part" onClick={() => props.selectElement(props.part, props.version)}>
+    <div>
       <img src={`img/${props.part}/${props.version}.png`}
            alt={`${props.part}, colors from version ${props.version}.png`}
+           onClick={() => props.selectElement(props.part, props.version)}
       />
     </div>
   )
@@ -54,24 +55,29 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
     )
   }
   return (
-    <div className="earth-container">
-      <form onSubmit={(event) => event.preventDefault()}>
-        {pieces.map((p, i) => {
-          return (<ClickableImg key={i}
-                                part={p.part}
-                                version={p.version}
-                                selectElement={selectElement}
-          />);
-        })}
-      </form>
-      <button onClick={() => handleSubmit()}>LAUNCH!</button>
-      <div className="rocket-container">
-        {pieces
-          .filter((p) => p.selected)
-          .map((p, i) => {
-            return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
+    <>
+        <div className="part-list">
+          {pieces.map((p, i) => {
+            return (<ClickableImg key={i}
+                                  part={p.part}
+                                  version={p.version}
+                                  selectElement={selectElement}
+            />);
           })}
-      </div>
-    </div>
+        </div>
+        <div className="rocket-container">
+          <div id="rocket">
+            {pieces
+              .filter((p) => p.selected)
+              .map((p, i) => {
+                return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
+              })}
+          </div>
+        </div>
+      {pieces.filter((p) => p.selected).length === 5
+        ? <div className="launch-container"><button onClick={() => handleSubmit()}>LAUNCH!</button></div>
+        : <></>
+      }
+    </>
   )
 }

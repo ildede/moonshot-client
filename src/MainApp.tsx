@@ -23,8 +23,11 @@ const MainApp = (): JSX.Element => {
 
   return (
     <GameContext.Provider value={{ username: username, setUsername: setUsername, gameId: gameId, setGameId: setGameId, place: place, setPlace: setPlace }}>
-      <div className="main-container">
-        {username && gameId && place ? <ActualGame/> : <InitGameInfo/>}
+      <div className={`container ${place.toLowerCase()}`}>
+        {username && gameId && place
+          ? <ActualGame/>
+          : <InitGameInfo/>
+        }
       </div>
     </GameContext.Provider>
   )

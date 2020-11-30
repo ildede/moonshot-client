@@ -7,7 +7,7 @@ import {GameContext} from "../../../MainApp";
 export const InitGameInfo = () => {
   const {username, place} = useContext(GameContext)
   return (
-    <>
+    <div className="main-container">
       {username
         ? (
           <>
@@ -22,6 +22,6 @@ export const InitGameInfo = () => {
         )
         : <UserNameChooser/>
       }
-    </>
+    </div>
   )
 }

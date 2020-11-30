@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './bg.css';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import MainApp from "./MainApp";

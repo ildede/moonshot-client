@@ -19,10 +19,12 @@ export function PlayMoon(props: { gameId: string }): JSX.Element {
   }, [setPieces, pieces.length, props.gameId])
 
   return (
-    <div className="moon-container">
-      {pieces.map((p, i) => {
-        return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
-      })}
+    <div className="blueprint-container">
+      <div id="blueprint">
+        {pieces.map((p, i) => {
+          return (<img key={i} src={`img/${p.part}/${p.version}.png`} className={p.part} alt={`${p.part}, colors from version ${p.version}.png`}/>);
+        })}
+      </div>
     </div>
   )
 }

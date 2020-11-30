@@ -17,7 +17,7 @@ export const MessagesBox = (props: { gameId: string }) => {
                  topic={`games/list/${props.gameId}`}
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >
-      {list.map((v: ChatMessage, i) => <li key={i}>{v.location}: {v.message}</li>)}
+      {list.map((v: ChatMessage, i) => <div key={i} className={v.location.toLowerCase()}>{v.message}</div>)}
     </StompClient>
   );
 }

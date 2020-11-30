@@ -9,27 +9,23 @@ export const ActualGame = () => {
   const {username, place, gameId} = useContext(GameContext);
 
   return (
-    <>
-      <h2>{place}</h2>
-      <p>Hi {username}, tell to your teammate what to do.</p>
-
-      <div className="game-container">
+    <div className={`${place.toLowerCase()}-container`}>
+        <div className="time-container">--{username}------------------------------------</div>
         {
           place === 'EARTH'
             ? <PlayEarth gameId={gameId || "empty"}/>
             : <PlayMoon gameId={gameId || "empty"}/>
         }
-      </div>
 
-      <div className="message-container">
-        <div className="message-box">
-          <MessagesBox gameId={gameId} />
+        <div className="message-container">
+          <div className="message-box">
+            <MessagesBox gameId={gameId} />
+          </div>
+          <div className="message-sender">
+            <MessageSender place={place} gameId={gameId} />
+          </div>
         </div>
-        <div className="message-sender">
-          <MessageSender place={place} gameId={gameId} />
-        </div>
-      </div>
 
-    </>
+    </div>
   )
 }

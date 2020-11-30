@@ -18,12 +18,12 @@ export const UserNameChooser = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>Username</h2>
       <input value={name} onChange={nameChange} type="text" placeholder="Username"/>
       <button disabled={!name || isSubmitting} onClick={chooseName}>
         {isSubmitting ? ("Loading...") : ("START")}
       </button>
-    </div>
+    </>
   )
 }
