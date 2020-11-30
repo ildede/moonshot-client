@@ -6,7 +6,7 @@ import {MessagesBox} from "./MessageBox";
 import {MessageSender} from "./MessageSender";
 
 export const ActualGame = () => {
-  const {username, place, gameId} = useContext(GameContext);
+  const {place, gameId} = useContext(GameContext);
 
   return (
     <div className={`${place.toLowerCase()}-container`}>
