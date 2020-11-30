@@ -33,13 +33,13 @@
     "parts timer launch"
     "parts rocket messages";
 }
-.earth-container .time-container {
+.earth-container .timer-container {
   background-color: red;
   grid-area: timer;
   align-self: center;
   justify-self: center;
 }
-.earth-container .part-list {
+.earth-container .part-container {
   grid-area: parts;
   max-height: 600px;
 }
@@ -59,13 +59,13 @@
   justify-self: center;
 }
 
-.part-list {
+.part-container {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.part-list div {
+.part-container div {
   width: 100px;
   min-height: 100px;
   background-image: url('img/inventory.png');
@@ -74,7 +74,7 @@
   align-items: center;
   justify-content: center;
 }
-.part-list div img {
+.part-container div img {
   max-height: 80px;
   max-width: 80px;
   padding: 10px;
@@ -132,7 +132,7 @@
     "timer timer"
     "blueprint messages";
 }
-.moon-container .time-container {
+.moon-container .timer-container {
   background-color: red;
   grid-area: timer;
   align-self: center;

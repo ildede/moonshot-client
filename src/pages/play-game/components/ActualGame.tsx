@@ -10,7 +10,7 @@ export const ActualGame = () => {
 
   return (
     <div className={`${place.toLowerCase()}-container`}>
-        <div className="time-container">--{username}------------------------------------</div>
+        <div className="timer-container" />
         {
           place === 'EARTH'
             ? <PlayEarth gameId={gameId || "empty"}/>

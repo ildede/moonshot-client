@@ -56,7 +56,7 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
   }
   return (
     <>
-        <div className="part-list">
+        <div className="part-container">
           {pieces.map((p, i) => {
             return (<ClickableImg key={i}
                                   part={p.part}
