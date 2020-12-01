@@ -4,12 +4,18 @@ import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 import {websocketServer} from "../../../environment";
 
-export const MessagesBox = (props: { gameId: string }) => {
+export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: number) => void }) => {
   const [list, setList] = React.useState<ChatMessage[]>([]);
 
   const handleMessage = (stompMessage: IMessage) => {
     const parsed: any = JSON.parse(stompMessage.body);
-    setList([...list, {location: parsed.location, message: parsed.message}])
+    if (parsed.location === "seconds-from-start") {
+      props.handleSeconds(Number(parsed.message));
+    } else if (parsed.location === "seconds-to-start") {
+      props.handleSeconds(-1 * Number(parsed.message));
+    } else {
+      setList([...list, {location: parsed.location, message: parsed.message}])
+    }
   }
 
   return (

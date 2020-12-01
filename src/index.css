@@ -34,7 +34,6 @@
     "parts rocket messages";
 }
 .earth-container .timer-container {
-  background-color: red;
   grid-area: timer;
   align-self: center;
   justify-self: center;
@@ -133,7 +132,6 @@
     "blueprint messages";
 }
 .moon-container .timer-container {
-  background-color: red;
   grid-area: timer;
   align-self: center;
   justify-self: center;
@@ -236,5 +234,34 @@
 .message-container .message-sender input {
   flex: 1;
   height: 1.5em;
+}
+
+.waiting-message {
+  padding: 1em;
+  align-self: center;
+  justify-self: center;
+  background-color: cadetblue;
+}
+
+.wrapper {
+  width: 500px;
+}
+
+.progress-bar {
+  overflow-x: hidden;
+  background-color: #659cef;
+  /*background: linear-gradient(90deg, red, orange, yellow, green);*/
+  padding: 3px;
+  /*border-radius: 3px;*/
+  /*box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);*/
+}
+
+.progress-bar-fill {
+  display: block;
+  height: 22px;
+  width: 500px;
+  background: linear-gradient(90deg, red, orange, yellow, green);
+  /*border-radius: 3px;*/
+  /*transition: width 500ms ease-in-out;*/
 }
 /* -- COMMON END -- */
