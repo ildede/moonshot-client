@@ -19,7 +19,7 @@ const GameContext = React.createContext<{
 const MainApp = (): JSX.Element => {
   const [username, setUsername] = useState('');
   const [gameId, setGameId] = useState('');
-  const [place, setPlace] = useState('');
+  const [place, setPlace] = useState('intro');
 
   return (
     <GameContext.Provider value={{ username: username, setUsername: setUsername, gameId: gameId, setGameId: setGameId, place: place, setPlace: setPlace }}>
