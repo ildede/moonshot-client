@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {GameContext} from "../../../MainApp";
 import {PlayEarth} from "./PlayEarth";
 import {PlayMoon} from "./PlayMoon";
@@ -9,6 +9,18 @@ import {TimerComponent} from "./TimerComponent";
 export const ActualGame = () => {
   const {place, gameId, setPlace, setGameId} = useContext(GameContext);
   const [seconds, setSeconds] = useState<number>(-99);
+  const [customMessage, setCustomMessage] = useState<string>('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (place === 'WON' || place === 'LOST') {
+        if (!customMessage) {
+          setCustomMessage(`You ${place}`)
+        }
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [place, customMessage]);
 
   const resetGame = () => {
     setPlace('');
@@ -42,10 +54,18 @@ export const ActualGame = () => {
     return (
       <div className={`${place.toLowerCase()}-container`}>
         <div className="result-box">
-          <img src={`img/${place.toLowerCase()}.gif`} alt={`You ${place}!`} style={{width: "100%", maxWidth: "100%", height: "auto"}}/>
-          <p>Seconds used: {seconds}</p>
+          {customMessage
+            ? (
+              <div className="result-message">
+                <h1>{customMessage}</h1>
+                <p>Seconds used: {seconds}</p>
+                <button onClick={resetGame}>Play again</button>
+              </div>
+            )
+            : (<img src={`img/${place.toLowerCase()}.gif`} alt={`You ${place}!`} style={{width: "100%", maxWidth: "100%", height: "auto"}}/>)
+          }
         </div>
-        <button onClick={resetGame}>Play again</button>
+
       </div>
     )
   }
