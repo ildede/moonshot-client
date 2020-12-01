@@ -7,6 +7,8 @@
   height: 600px;
   padding: 0.5em 1em 0.5em;
   margin: auto;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', sans-serif;
 }
 
 /* -- MAIN START -- */
@@ -14,6 +16,39 @@
   width: 100%;
   height: 100%;
   text-align: center;
+  /*background-color: #feda4a;*/
+}
+
+.select-place-container {
+  display: flex;
+}
+.select-place-moon, .select-place-earth {
+  flex: 1;
+  padding: 0 3em;
+}
+.select-place-moon > div, .select-place-earth > div {
+  padding: 0.5em;
+}
+.select-place-moon > button, .select-place-earth > button {
+  padding: 1em;
+  font-size: 100%;
+  font-weight: 600;
+}
+.select-place-moon span, .select-place-earth span {
+  display: block;
+  font-size: 300%;
+}
+
+.game-list {
+  height: 250px;
+  overflow-y: scroll;
+  text-align: right;
+  padding-right: 10em;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.game-list button {
+  margin: 0 1em;
 }
 /* -- MAIN END -- */
 
@@ -212,7 +247,7 @@
 }
 .message-container .message-box .moon {
   align-self: flex-start;
-  background-color: rgba(49, 183, 155, 0.3);
+  background-color: rgba(49, 183, 155, 0.5);
   padding: 0.5em;
   border-radius: 0.5em;
   margin: 0.1em;
@@ -222,7 +257,7 @@
 }
 .message-container .message-box .game {
   align-self: center;
-  background-color: rgba(255, 0, 0, 0.3);
+  background-color: rgba(255, 0, 0, 0.5);
   width: 90%;
   padding: 0.5em;
   border-radius: 0.5em;

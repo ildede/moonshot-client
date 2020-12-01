@@ -20,9 +20,15 @@ export const PlaceChooser = () => {
   };
 
   return (
-    <p>
-      <button disabled={isSubmitting} onClick={() => createGame('MOON')}>Set Place to MOON</button>
-      <button disabled={isSubmitting} onClick={() => createGame('EARTH')}>Set Place to EARTH</button>
-    </p>
+    <div className="select-place-container">
+      <div className="select-place-moon">
+        <button disabled={isSubmitting} onClick={() => createGame('MOON')}>Play on MOON <span>🌖</span></button>
+        <div>Play as Prof. Melier, who crashed on the Moon. Provide instructions to build the spaceship according to your project.</div>
+      </div>
+      <div className="select-place-earth">
+        <button disabled={isSubmitting} onClick={() => createGame('EARTH')}>Play on EARTH <span>🌍</span></button>
+        <div>Play as the Earth crew, receive instructions from Prof. Melier and assemble the spaceship parts.</div>
+      </div>
+    </div>
   )
 }

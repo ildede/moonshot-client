@@ -13,9 +13,9 @@ export const InitGameInfo = () => {
           <>
             <div>{`User: ${username}`}</div>
             <div>
-              <h2>CHOOSE!</h2>
+              <h2>CHOOSE where you want to play to create a room!</h2>
               <div>{place ? `Place: ${place}` : <PlaceChooser/>}</div>
-              <h2>or JOIN!</h2>
+              <h2>Or JOIN an existing room!</h2>
               <GameJoiner/>
             </div>
           </>

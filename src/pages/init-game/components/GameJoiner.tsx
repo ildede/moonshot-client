@@ -5,6 +5,23 @@ import {Locations, WaitingGame} from "../model/interfaces";
 import {GameContext} from "../../../MainApp";
 import {httpServer, websocketServer} from "../../../environment";
 
+const toEmoticon = (s: string) => {
+  switch (s) {
+    case 'MOON':
+      return '🌖';
+    case 'EARTH':
+      return '🌍';
+  }
+}
+const reverseLocation = (s: string) => {
+  switch (s) {
+    case 'MOON':
+      return 'EARTH';
+    case 'EARTH':
+      return 'MOON';
+  }
+}
+
 export const GameJoiner = () => {
   const {setGameId, setPlace, username} = useContext(GameContext);
   const [list, setList] = React.useState<WaitingGame[]>([]);
@@ -63,8 +80,8 @@ export const GameJoiner = () => {
         {list.map((v, i) => {
           return (
             <p key={v.gameId}>
-              Created on {v.creationTime} by {v.username}:
-              <button onClick={() => joinGame(v.gameId, v.location)}>Join on {v.location}</button>
+              <strong>{v.username}</strong> is on the {reverseLocation(v.location)}, waiting for you.
+              <button onClick={() => joinGame(v.gameId, v.location)}>Join to play on {toEmoticon(v.location)}</button>
             </p>
           )
         })}
