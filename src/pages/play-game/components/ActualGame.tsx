@@ -18,7 +18,7 @@ export const ActualGame = () => {
           setCustomMessage(`You ${place}`)
         }
       }
-    }, 3000);
+    }, 7000);
     return () => clearTimeout(timer);
   }, [place, customMessage]);
 
@@ -54,15 +54,16 @@ export const ActualGame = () => {
     return (
       <div className={`${place.toLowerCase()}-container`}>
         <div className="result-box">
+          <img src={`img/${place.toLowerCase()}.gif`} alt={`You ${place}!`} style={{width: "100%", maxWidth: "100%", height: "auto"}}/>
           {customMessage
             ? (
               <div className="result-message">
-                <h1>{customMessage}</h1>
-                <p>Seconds used: {seconds}</p>
+                {/*<h1>{customMessage}</h1>*/}
+                <span>Seconds used: {seconds}</span>
                 <button onClick={resetGame}>Play again</button>
               </div>
             )
-            : (<img src={`img/${place.toLowerCase()}.gif`} alt={`You ${place}!`} style={{width: "100%", maxWidth: "100%", height: "auto"}}/>)
+            : (<></>)
           }
         </div>
 
