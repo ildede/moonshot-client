@@ -38,7 +38,7 @@ export const UserNameChooser = () => {
     setIsSubmitting(true);
     if (name) {
       setUsername(name);
-      setPlace('');
+      setPlace('splash');
     }
   };
 
