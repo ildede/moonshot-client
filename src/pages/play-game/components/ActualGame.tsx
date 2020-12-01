@@ -18,7 +18,7 @@ export const ActualGame = () => {
           setCustomMessage(`You ${place}`)
         }
       }
-    }, 5000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [place, customMessage]);
 

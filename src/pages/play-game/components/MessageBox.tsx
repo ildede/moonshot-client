@@ -12,7 +12,7 @@ const AlwaysScrollToBottom = () => {
 };
 
 export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: number) => void }) => {
-  const { setPlace } = useContext(GameContext);
+  const { place, setPlace } = useContext(GameContext);
   const [list, setList] = React.useState<ChatMessage[]>([]);
 
   const handleMessage = (stompMessage: IMessage) => {
@@ -33,6 +33,10 @@ export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: nu
                  topic={`games/list/${props.gameId}`}
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >
+      {place === 'EARTH'
+        ? <div className="game">Wait for instructions from Prof. Melier, then pick the right components.</div>
+        : <div className="game">Use the chat to help your colleague follow your blueprint.</div>
+      }
       {list.map((v: ChatMessage, i) => <div key={i} className={v.location.toLowerCase()}>{v.message}</div>)}
       <AlwaysScrollToBottom />
     </StompClient>
