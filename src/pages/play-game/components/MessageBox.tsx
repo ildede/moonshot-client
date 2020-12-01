@@ -1,8 +1,14 @@
-import React from "react";
+import React, {useEffect, useLayoutEffect, useRef} from "react";
 import {ChatMessage} from "../model/interfaces";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 import {websocketServer} from "../../../environment";
+
+const AlwaysScrollToBottom = () => {
+  const divRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => divRef?.current?.scrollIntoView());
+  return <div ref={divRef} />;
+};
 
 export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: number) => void }) => {
   const [list, setList] = React.useState<ChatMessage[]>([]);
@@ -24,6 +30,7 @@ export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: nu
                  onMessage={(stompMessage: IMessage) => handleMessage(stompMessage)}
     >
       {list.map((v: ChatMessage, i) => <div key={i} className={v.location.toLowerCase()}>{v.message}</div>)}
+      <AlwaysScrollToBottom />
     </StompClient>
   );
 }
