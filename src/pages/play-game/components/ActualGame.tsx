@@ -25,7 +25,7 @@ export const ActualGame = () => {
   const resetGame = () => {
     setPlace('');
     setGameId('');
-    window.location.href='/'
+    // window.location.href='/'
   }
 
   if (place === 'EARTH' || place === 'MOON') {
