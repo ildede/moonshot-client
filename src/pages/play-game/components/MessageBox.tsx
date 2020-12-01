@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useLayoutEffect, useRef} from "react";
+import React, {useContext, useLayoutEffect, useRef} from "react";
 import {ChatMessage} from "../model/interfaces";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";

@@ -3,22 +3,23 @@ import {GameContext} from "../../../MainApp";
 
 const StarWars = () => {
   return (
-    <section className="star-wars">
+    <div className="star-wars-wrapper">
+      <section className="star-wars">
+        <div className="crawl">
 
-      <div className="crawl">
+          <div className="title">
+            <p>Professor Melier crashed on the moon. He needs to be rescued!</p>
+            <h1>But beware of the ComMoonication IntEarthference!</h1>
+          </div>
 
-        <div className="title">
-          <p>Professor Melier crashed on the moon. He needs to be rescued!</p>
-          <h1>But beware of the ComMoonication IntEarthference!</h1>
+          <p>The only existing copy of the spaceship's blueprint is in the professor's hands!</p>
+          <p>He will have to guide his colleagues back on the Earth via radio communication.</p>
+          <p>Collaborate together to build a spaceship and rescue Prof. Melier from the moon. Be quick, the intEarthference might make it difficult to comMoonicate...</p>
+
         </div>
 
-        <p>The only existing copy of the spaceship's blueprint is in the professor's hands!</p>
-        <p>He will have to guide his colleagues back on the Earth via radio communication.</p>
-        <p>Collaborate together to build a spaceship and rescue Prof. Melier from the moon. Be quick, the intEarthference might make it difficult to comMoonicate...</p>
-
-      </div>
-
-    </section>
+      </section>
+    </div>
   );
 }
 

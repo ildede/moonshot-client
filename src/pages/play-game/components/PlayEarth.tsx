@@ -35,7 +35,7 @@ export function PlayEarth(props: { gameId: string, seconds: number }): JSX.Eleme
     if (props.seconds === 100) {
       handleSubmit();
     }
-  }, [props.seconds])
+  })
 
   const handleSubmit = () => {
     if (!isSubmitting) {
