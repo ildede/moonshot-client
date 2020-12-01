@@ -5,11 +5,11 @@ import StompClient from "react-stomp-client";
 import {websocketServer} from "../../../environment";
 import {GameContext} from "../../../MainApp";
 
-const AlwaysScrollToBottom = () => {
-  const divRef = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => divRef?.current?.scrollIntoView());
-  return <div ref={divRef} />;
-};
+// const AlwaysScrollToBottom = () => {
+//   const divRef = useRef<HTMLDivElement>(null);
+//   useLayoutEffect(() => divRef?.current?.scrollIntoView());
+//   return <div ref={divRef} />;
+// };
 
 export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: number) => void }) => {
   const { place, setPlace } = useContext(GameContext);
@@ -38,7 +38,7 @@ export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: nu
         : <div className="game">Use the chat to help your colleague follow your blueprint.</div>
       }
       {list.map((v: ChatMessage, i) => <div key={i} className={v.location.toLowerCase()}>{v.message}</div>)}
-      <AlwaysScrollToBottom />
+      {/*<AlwaysScrollToBottom />*/}
     </StompClient>
   );
 }
