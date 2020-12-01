@@ -7,17 +7,23 @@ import {MessageSender} from "./MessageSender";
 import {TimerComponent} from "./TimerComponent";
 
 export const ActualGame = () => {
-  const {place, gameId} = useContext(GameContext);
+  const {place, gameId, setPlace, setGameId} = useContext(GameContext);
   const [seconds, setSeconds] = useState<number>(-99);
 
-  return (
-    <div className={`${place.toLowerCase()}-container`}>
+  const resetGame = () => {
+    setPlace('');
+    setGameId('');
+  }
+
+  if (place === 'EARTH' || place === 'MOON') {
+    return (
+      <div className={`${place.toLowerCase()}-container`}>
         <div className="timer-container">
           <TimerComponent seconds={seconds} />
         </div>
         {
           place === 'EARTH'
-            ? (seconds < 0 ? <></> : <PlayEarth gameId={gameId || "empty"}/>)
+            ? (<PlayEarth gameId={gameId || "empty"} seconds={seconds} />)
             : (seconds < 0 ? <></> : <PlayMoon gameId={gameId || "empty"}/>)
         }
 
@@ -30,6 +36,17 @@ export const ActualGame = () => {
           </div>
         </div>
 
-    </div>
-  )
+      </div>
+    )
+  } else {
+    return (
+      <div className={`${place.toLowerCase()}-container`}>
+        <div className="result-box">
+          <p>You {place}!</p>
+          <p>Seconds used: {seconds}</p>
+        </div>
+        <button onClick={resetGame}>Play again</button>
+      </div>
+    )
+  }
 }

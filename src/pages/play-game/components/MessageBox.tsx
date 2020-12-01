@@ -1,8 +1,9 @@
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, {useContext, useEffect, useLayoutEffect, useRef} from "react";
 import {ChatMessage} from "../model/interfaces";
 import {IMessage} from "@stomp/stompjs";
 import StompClient from "react-stomp-client";
 import {websocketServer} from "../../../environment";
+import {GameContext} from "../../../MainApp";
 
 const AlwaysScrollToBottom = () => {
   const divRef = useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ const AlwaysScrollToBottom = () => {
 };
 
 export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: number) => void }) => {
+  const { setPlace } = useContext(GameContext);
   const [list, setList] = React.useState<ChatMessage[]>([]);
 
   const handleMessage = (stompMessage: IMessage) => {
@@ -19,8 +21,10 @@ export const MessagesBox = (props: { gameId: string, handleSeconds: (seconds: nu
       props.handleSeconds(Number(parsed.message));
     } else if (parsed.location === "seconds-to-start") {
       props.handleSeconds(-1 * Number(parsed.message));
+    } else if (parsed.location === "game-end") {
+      setPlace(parsed.message);
     } else {
-      setList([...list, {location: parsed.location, message: parsed.message}])
+      setList([...list, {location: parsed.location, message: parsed.message}]);
     }
   }
 

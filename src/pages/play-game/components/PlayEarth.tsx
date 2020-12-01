@@ -14,7 +14,7 @@ const ClickableImg = (props: { key: number, part: string, version: number, selec
   )
 }
 
-export function PlayEarth(props: { gameId: string }): JSX.Element {
+export function PlayEarth(props: { gameId: string, seconds: number }): JSX.Element {
   const [pieces, setPieces] = React.useState<Piece[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -30,6 +30,12 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
       xhr.send();
     }
   }, [setPieces, pieces.length, props.gameId])
+
+  useEffect(() => {
+    if (props.seconds === 100) {
+      handleSubmit();
+    }
+  }, [props.seconds])
 
   const handleSubmit = () => {
     if (!isSubmitting) {
@@ -57,7 +63,7 @@ export function PlayEarth(props: { gameId: string }): JSX.Element {
   return (
     <>
         <div className="part-container">
-          {pieces.map((p, i) => {
+          {pieces.filter(p => props.seconds > 0).map((p, i) => {
             return (<ClickableImg key={i}
                                   part={p.part}
                                   version={p.version}
