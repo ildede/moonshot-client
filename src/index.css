@@ -72,7 +72,7 @@
 
 .earth-container {
   display: grid;
-  grid-template-columns: 2.5fr 4fr 4fr;
+  grid-template-columns: 1fr 1fr 2fr;
   grid-template-rows: 1fr 8fr;
   grid-template-areas:
     "parts timer launch"
@@ -288,23 +288,23 @@
   background-color: cadetblue;
 }
 
-.wrapper {
-  width: 500px;
+.wrapper, .waiting-message {
+  width: 400px;
 }
 
 .progress-bar {
   overflow-x: hidden;
   background-color: #659cef;
   /*background: linear-gradient(90deg, red, orange, yellow, green);*/
-  padding: 3px;
-  /*border-radius: 3px;*/
+  /*padding: 3px;*/
+  border-radius: 3px;
   /*box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);*/
 }
 
 .progress-bar-fill {
   display: block;
   height: 22px;
-  width: 500px;
+  width: 400px;
   background: linear-gradient(90deg, red, orange, yellow, green);
 }
 /* -- COMMON END -- */

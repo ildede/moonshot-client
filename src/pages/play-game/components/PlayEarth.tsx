@@ -63,7 +63,7 @@ export function PlayEarth(props: { gameId: string, seconds: number }): JSX.Eleme
   return (
     <>
         <div className="part-container">
-          {pieces.filter(p => props.seconds > 0).map((p, i) => {
+          {pieces.map((p, i) => {
             return (<ClickableImg key={i}
                                   part={p.part}
                                   version={p.version}
