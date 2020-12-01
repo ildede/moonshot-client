@@ -19,7 +19,7 @@
 .container.earth {
   background-image: url('img/hangar.png');
   background-position: center;
-  background-position-y: 55%;
+  background-position-y: 30%;
   background-repeat: no-repeat;
   background-size: 150%;
   background-blend-mode: normal;
@@ -27,8 +27,8 @@
 
 .earth-container {
   display: grid;
-  grid-template-columns: 2fr 5fr 3fr;
-  grid-template-rows: 2fr 8fr;
+  grid-template-columns: 2.5fr 4fr 4fr;
+  grid-template-rows: 1fr 8fr;
   grid-template-areas:
     "parts timer launch"
     "parts rocket messages";
@@ -44,13 +44,13 @@
 }
 .earth-container .rocket-container {
   grid-area: rocket;
-  max-height: 450px;
+  max-height: 520px;
   position: relative;
   overflow: hidden;
 }
 .earth-container .message-container {
   grid-area: messages;
-  max-height: 450px;
+  max-height: 520px;
 }
 .earth-container .launch-container {
   grid-area: launch;
@@ -86,8 +86,8 @@
   display: inline-block;
   width: 150px;
   height: 200px;
-  top: 30%;
-  left: 80%;
+  top: 47%;
+  left: 73%;
   transform: scale(2);
 }
 #rocket img {
