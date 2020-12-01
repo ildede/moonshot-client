@@ -42,7 +42,7 @@ export const ActualGame = () => {
     return (
       <div className={`${place.toLowerCase()}-container`}>
         <div className="result-box">
-          <p>You {place}!</p>
+          <img src={`img/${place.toLowerCase()}.gif`} alt={`You ${place}!`} style={{width: "100%", maxWidth: "100%", height: "auto"}}/>
           <p>Seconds used: {seconds}</p>
         </div>
         <button onClick={resetGame}>Play again</button>
