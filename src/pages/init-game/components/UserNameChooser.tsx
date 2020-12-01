@@ -10,7 +10,8 @@ export const UserNameChooser = () => {
     setName(event.target.value);
   }
 
-  const chooseName = () => {
+  const chooseName = (e: any) => {
+    e.preventDefault();
     setIsSubmitting(true);
     if (name) {
       setUsername(name);
@@ -18,12 +19,12 @@ export const UserNameChooser = () => {
   };
 
   return (
-    <>
+    <form onSubmit={chooseName}>
       <h2>Username</h2>
       <input value={name} onChange={nameChange} type="text" placeholder="Username"/>
       <button disabled={!name || isSubmitting} onClick={chooseName}>
         {isSubmitting ? ("Loading...") : ("START")}
       </button>
-    </>
+    </form>
   )
 }
