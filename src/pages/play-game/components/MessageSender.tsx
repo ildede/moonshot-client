@@ -9,7 +9,8 @@ export const MessageSender = (props: { place: string, gameId?: string }) => {
     setMessage(event.target.value);
   }
 
-  const sendMessage = () => {
+  const sendMessage = (e: any) => {
+    e.preventDefault();
     if (message) {
       setIsSubmitting(true);
       const xhr = new XMLHttpRequest();
@@ -24,7 +25,7 @@ export const MessageSender = (props: { place: string, gameId?: string }) => {
   }
 
   return (
-    <>
+    <form onSubmit={sendMessage}>
       <input
         type="text" autoComplete="off"
         placeholder="Type a message..."
@@ -34,6 +35,6 @@ export const MessageSender = (props: { place: string, gameId?: string }) => {
       <button disabled={isSubmitting} onClick={sendMessage}>
         {isSubmitting ? ("Wait...") : ("Send")}
       </button>
-    </>
+    </form>
   )
 }
