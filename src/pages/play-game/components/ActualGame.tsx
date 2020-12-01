@@ -25,6 +25,7 @@ export const ActualGame = () => {
   const resetGame = () => {
     setPlace('');
     setGameId('');
+    window.location.href='/'
   }
 
   if (place === 'EARTH' || place === 'MOON') {
@@ -58,7 +59,6 @@ export const ActualGame = () => {
           {customMessage
             ? (
               <div className="result-message">
-                {/*<h1>{customMessage}</h1>*/}
                 <span>Seconds used: {seconds}</span>
                 <button onClick={resetGame}>Play again</button>
               </div>

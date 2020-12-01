@@ -23,7 +23,6 @@ export function PlayEarth(props: { gameId: string, seconds: number }): JSX.Eleme
       const xhr = new XMLHttpRequest();
       xhr.addEventListener('load', () => {
         const parsed: { earthPieces: Piece[] } = JSON.parse(xhr.responseText);
-        console.log('parsed', parsed);
         setPieces(parsed.earthPieces);
       });
       xhr.open('GET', httpServer + '/games/' + props.gameId);
@@ -32,7 +31,7 @@ export function PlayEarth(props: { gameId: string, seconds: number }): JSX.Eleme
   }, [setPieces, pieces.length, props.gameId])
 
   useEffect(() => {
-    if (props.seconds === 100) {
+    if (props.seconds > 100) {
       handleSubmit();
     }
   })

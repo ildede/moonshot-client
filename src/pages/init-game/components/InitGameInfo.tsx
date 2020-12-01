@@ -10,7 +10,7 @@ export const InitGameInfo = () => {
   if (place === 'splash') {
     return (
       <div className="main-container" onClick={() => setPlace('')}>
-        <p>click to start</p>
+        <p>Click to start</p>
       </div>
       )
   } else {
